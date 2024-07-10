@@ -1,6 +1,6 @@
 # Using S3 bucket to store OG images in AWS Amplify app
 
-The website I'm working on, [Mi Home](https://www.mi-home.pro) is hosted by AWS Amplify, it uses Next.js framework and uses S3 bucked to store images. 
+The website I'm working on, [Mi Home](https://www.mi-home.pro) is hosted by AWS Amplify, it uses Next.js framework and uses S3 bucket to store images. 
 
 Everything is fine for that, except one thing. Amazon S3 storage, where images are saved, is not public, and to get temporary image URL I using the code like this:
 ```typescript
@@ -9,7 +9,9 @@ finalPath =  await Storage.get(path, {
             expires: 7*24*3600
         })
 ```
-It produces very long links like ` https://mihomeproimages154242-production.s3.eu-west-3.amazonaws.com/public/goods/yeelight_1s_1se_colorful_bulb_e27_smart_app_wifi_r.webp?x-amz-content-sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&x-amz-user-agent=aws-amplify%2F5.3.18+storage%2F2+framework%2F102&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAYV5MP7SRPHSND5ZZ%2F20240710%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20240710T080453Z&X-Amz-SignedHeaders=host&X-Amz-Expires=604800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHgaCWV1LXdlc3QtMyJHMEUCIQCj1SRy2ybvFSKlkDkAJ2SmqLGZ5BlA%2Bv8jQju5otLVTQIgHoRDVZ5FQY8Sn9EldJd%2BS%2FYMFQH8jP9...` (this is just a fragment). Ok, that approach works fine with `<Image />` component of Next.js, but I faced a problem when start using NextSeo component:
+It produces very long links like ` https://mihomeproimages154242-production.s3.eu-west-3.amazonaws.com/public/goods/yeelight_1s_1se_colorful_bulb_e27_smart_app_wifi_r.webp?x-amz-content-sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&x-amz-user-agent=aws-amplify%2F5.3.18+storage%2F2+framework%2F102&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAYV5MP7SRPHSND5ZZ%2F20240710%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20240710T080453Z&X-Amz-SignedHeaders=host&X-Amz-Expires=604800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHgaCWV1LXdlc3QtMyJHMEUCIQCj1SRy2ybvFSKlkDkAJ2SmqLGZ5BlA%2Bv8jQju5otLVTQIgHoRDVZ5FQY8Sn9EldJd%2BS%2FYMFQH8jP9...` 
+
+(this is just a fragment). Ok, that approach works fine with `<Image />` component of Next.js, but I faced a problem when start using NextSeo component:
 ```typescript
 <NextSeo
         title={params.name}
