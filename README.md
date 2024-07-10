@@ -117,7 +117,6 @@ const bucketName = 'mi-home-pro-img'
                       Bucket:  bucketName,
                       Key: fileName,
                       Body: data,
-                      ContentEncoding: 'base64',
                       ContentType: 'image/jpeg'
                   })
                   try {
